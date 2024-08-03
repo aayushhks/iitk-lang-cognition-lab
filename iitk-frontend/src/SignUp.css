@@ -1,0 +1,107 @@
+/* .bottom-area {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2rem !important;
+    text-align: center;
+}
+
+.signup-container {
+    margin-top: 50px;
+}
+
+.signup-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-card .card-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.signup-card .form-control {
+    margin-bottom: 15px;
+}
+
+.signup-card .form-check {
+    margin-bottom: 15px;
+}
+
+.adj-row{
+    margin-top:2rem
+} */
+
+
+/* Base styles */
+.bottom-area {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2rem !important;
+    text-align: center;
+}
+
+.signup-container {
+    margin-top: 50px;
+    /* z-index: 0; */
+}
+
+.signup-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-card .card-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.signup-card .form-control {
+    margin-bottom: 15px;
+}
+
+.signup-card .form-check {
+    margin-bottom: 15px;
+}
+
+.adj-row {
+    margin-top: 2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .signup-card {
+        padding: 15px;
+    }
+
+    .signup-card .card-title {
+        font-size: 20px;
+    }
+
+    .signup-card .form-control,
+    .signup-card .form-check {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .signup-container {
+        margin-top: 30px;
+    }
+
+    .signup-card {
+        padding: 10px;
+        margin: 0 10px;
+    }
+
+    .signup-card .card-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .signup-card .form-control,
+    .signup-card .form-check {
+        margin-bottom: 8px;
+    }
+}

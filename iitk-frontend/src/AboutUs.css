@@ -1,0 +1,115 @@
+
+:root {
+    --main-blue: #0077B5;
+    --light-blue: #1bb1dc; 
+}
+
+.page-heading {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.redirect-link {
+    color: var(--main-blue);
+    font-weight: bold;
+}
+
+.about-page {
+    background-color: rgb(245, 245, 245);
+}
+
+.main-area {
+    margin-top: 2rem;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.left-col-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjusted box shadow */
+}
+
+.right-col {
+    margin: auto;
+    margin-top: 0;
+}
+
+.para {
+    text-align: justify;
+}
+
+.left-col {
+    text-align: right;
+}
+
+.caption {
+    margin-top: 1rem;
+    font-weight: normal;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.credit-text {
+    text-align: left;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+    .main-area {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-area {
+        width: 90%;
+    }
+
+    .caption {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-area {
+        width: 95%;
+    }
+
+    .left-col {
+        text-align: center;
+    }
+
+    .right-col {
+        margin-top: 1rem;
+    }
+
+    .caption {
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-area {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .page-heading {
+        font-size: 1.5rem;
+    }
+
+    .caption {
+        font-size: 1rem;
+    }
+
+    .para {
+        text-align: left;
+    }
+
+    .left-col, .right-col {
+        text-align: center;
+        margin: 1rem 0;
+    }
+}

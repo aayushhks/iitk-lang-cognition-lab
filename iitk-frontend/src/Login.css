@@ -1,0 +1,73 @@
+.bottom-area {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login-btn {
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.signup-link {
+    text-decoration: none;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.forgot-link {
+    text-decoration: none;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    padding: 0;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+.status-msg {
+    color: darkred;
+    font-size: 0.8rem;
+}
+
+.login-card {
+    padding: 2em;
+    width: 500px;
+    margin-right: 1000px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: #fff;
+}
+
+.card-title {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #6e8efb;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #a777e3;
+}
+
+

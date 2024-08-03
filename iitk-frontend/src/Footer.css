@@ -1,0 +1,128 @@
+.footer {
+    width: 100%;
+    background-color: white;
+}
+
+.upper-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 10% 30px 10%;
+    background-color: white;
+}
+
+.upper-text {
+    margin-bottom: 20px;
+}
+
+.icons-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.icons-row > * {
+    background-color: rgb(245, 245, 245);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: black;
+    transition: all 0.2s ease-in-out;
+}
+
+.icons-row > *:hover {
+    background-color: black;
+}
+
+.icons-row > :nth-child(1):hover {
+    color: white;
+}
+
+.icons-row > :nth-child(2):hover {
+    color: #1877F2;
+}
+
+.icons-row > :nth-child(3):hover {
+    color: #d62976;
+}
+
+.icons-row > :nth-child(4):hover {
+    color: #0077B5;
+}
+
+.lower-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10%;
+    background-color: rgb(245, 245, 245);
+}
+
+.lower-bar-text {
+    margin-bottom: 10px;
+}
+
+.lower-nav-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #007bff;
+}
+
+.text-1 {
+    color: #0d6efd; /* Replace with your desired color code */
+}
+
+
+.page-link-text {
+    cursor: pointer;
+}
+
+/* Media Queries */
+
+@media (min-width: 600px) {
+    .upper-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .upper-text {
+        margin-bottom: 0;
+    }
+
+    .icons-row {
+        justify-content: flex-end;
+        gap: 20px;
+    }
+
+    .lower-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .lower-bar-text {
+        margin-bottom: 0;
+    }
+
+    .lower-nav-items {
+        justify-content: flex-end;
+        gap: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    .icons-row > * {
+        padding: 10px 30px;
+    }
+
+    .lower-nav-items {
+        gap: 30px;
+    }
+}

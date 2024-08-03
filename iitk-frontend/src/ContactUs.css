@@ -1,0 +1,123 @@
+/* Ensure the entire page is a flex container with column direction */
+.contact-page-contactus {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure the main content takes up all available space except for the footer */
+.contact-container-contactus {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contact-header-contactus {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-area-contactus {
+    text-align: left;
+    padding: 20px;
+}
+
+.contact-area-contactus h2 {
+    margin-bottom: 1rem;
+}
+
+.contact-area-contactus h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-area-contactus div {
+    margin-bottom: 0.5rem;
+}
+
+.contact-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.left-col-contactus, .right-col-contactus {
+    flex-basis: 100%;
+}
+
+/* Media Queries */
+
+/* Small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .contact-container-contactus {
+        padding: 10px;
+    }
+
+    .contact-area-contactus {
+        padding: 0;
+    }
+
+    .contact-image {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+    .contact-container-contactus {
+        padding: 15px;
+    }
+
+    .contact-area-contactus {
+        padding: 0;
+    }
+
+    .contact-image {
+        width: 70%;
+        max-width: 400px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (min-width: 992px) {
+    .content-wrapper {
+        flex-direction: row;
+    }
+
+    .left-col-contactus, .right-col-contactus {
+        flex-basis: 50%;
+    }
+
+    .contact-area-contactus {
+        padding: 20px;
+    }
+
+    .contact-image {
+        width: 60%;
+        max-width: 500px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .contact-container-contactus {
+        padding: 30px;
+    }
+
+    .contact-image {
+        width: 50%;
+        max-width: 600px;
+    }
+}
