@@ -1,0 +1,7 @@
+1. File "Uncleaned_tokens_full" and "Uncleaned_tokens_sorted" consists total tokens from full corpus. These tokens has extracted on the basis of word separated by a space in the corpus.
+
+2. File "words_countTotal_2.3_million" consists total tokens extracted from full corpus after cleaning the corpus.
+
+3. File "word_count_96122.txt" consists all tokens extracted from file "words_countTotal_2.3_million" which have a frequency greater than equal to 100.
+
+4.
