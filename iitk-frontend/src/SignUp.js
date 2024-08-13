@@ -24,14 +24,17 @@ const SignUp = () => {
         proficiencySecondaryLanguage: '',
         proficiencyOtherLanguage: '',
         ageAcquisitionMotherTongue: '',
-        ageAcquisitionSecondaryLanguage: '',
+        ageAcquisitionSecondaryLang: '',
         handedness: '',
-        vision: '',
+        vision:'',
         familyIncome: '',
-        languageUse: '',
-        currentLocation: '',
+        Home:'',
+        withfriends: '',
+        social:'',
+        atwork:'',
+        currentLocation:'',
         hailFrom: '',
-        privacyPolicy: false,
+        // privacyPolicy: false,
     });
 
     const handleChange = (e) => {
@@ -51,7 +54,7 @@ const SignUp = () => {
         console.log(formData);
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4999/signup', {
+            const response = await fetch('http://localhost:4997/signup', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -218,7 +221,7 @@ const SignUp = () => {
                                     </Col>
                                     <Col md={6}>
                                         <Form.Group controlId="formSecondaryLanguage" className='adj-row'>
-                                            <Form.Control as="select" name="secondaryLanguage" value={formData.secondaryLanguage} onChange={handleChange} required >
+                                            <Form.Control as="select" name="proficiencyMotherTongue" value={formData.proficiencyMotherTongue} onChange={handleChange} required >
                                                 <option value="" disabled>Proficiency in Mother Tongue</option>
                                                 <option value="Not Proficient at all">Not Proficient at all </option>
                                                 <option value="Biginners level Proficiency ">Beginners level Proficiency </option>
@@ -333,8 +336,8 @@ const SignUp = () => {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formAgeAcquisitionSecondaryLanguage">
-                                            <Form.Control as="select" placeholder="Handedness" name="ageAcquisitionSecondaryLanguage" value={formData.ageAcquisitionSecondaryLanguage} onChange={handleChange} required>
+                                        <Form.Group controlId="form_handedness">
+                                            <Form.Control as="select" placeholder="handedness" name="handedness" value={formData.ageAcquisitionSecondaryLanguage} onChange={handleChange} required>
                                                 <option value="" disabled>Handedness</option>
                                                 <option value="Right Handed">Right Handed</option>
                                                 <option value="Left Handed">Left Handed</option>
@@ -343,8 +346,8 @@ const SignUp = () => {
                                         </Form.Group>
                                     </Col>
                                     <Col md={3}>
-                                        <Form.Group controlId="formHandedness">
-                                            <Form.Control as="select" name="handedness" value={formData.handedness} onChange={handleChange} required>
+                                        <Form.Group controlId="form_vision">
+                                            <Form.Control as="select" name="vision" value={formData.vision} onChange={handleChange} required>
                                                 <option value="" disabled>Vision</option>
                                                 <option value="Normal">Normal</option>
                                                 <option value="Corrected to normal">Corrected to normal</option>
@@ -352,8 +355,8 @@ const SignUp = () => {
                                         </Form.Group>
                                     </Col>
                                     <Col md={3}>
-                                        <Form.Group controlId="formVision">
-                                            <Form.Control as="select" name="vision" value={formData.vision} onChange={handleChange} required>
+                                        <Form.Group controlId="form_FamilyIncome">
+                                            <Form.Control as="select" name="familyIncome" value={formData.familyIncome} onChange={handleChange} required>
                                                 <option value="" disabled> Family Income</option>
                                                 <option value="0 to 5 lac">0-5 Lac</option>
                                                 <option value="6 to 10 lac">6-10 Lac</option>

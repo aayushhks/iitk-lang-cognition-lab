@@ -17,7 +17,7 @@ function Registration() {
             // Call registration function from flask
             const email = localStorage.getItem('email');
             const courseName = localStorage.getItem('courseName');
-            const endpoint = 'http://localhost:4999/reg-course';
+            const endpoint = 'http://localhost:4997/reg-course';
             if (courseName !== null) {
                 try {
                     const response = await fetch(endpoint, {

@@ -51,7 +51,7 @@ function MyProfile() {
         const email=localStorage.email
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4999/update-profile', {
+            const response = await fetch('http://localhost:4997/update-profile', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ function MyProfile() {
         console.log(formData);
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4999/get-profile', {
+            const response = await fetch('http://localhost:4997/get-profile', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -281,7 +281,7 @@ function MyProfile() {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formSecondaryLanguage" className='adj-row'>
+                                        <Form.Group controlId="form_proficiencyMotherTongue" className='adj-row'>
                                             <Form.Control as="select" name="proficiencyMotherTongue" value={formData.proficiencyMotherTongue} onChange={handleChange} required >
                                                 <option value="" disabled>Proficiency in Mother Tongue</option>
                                                 <option value="Not Proficient at all">Not Proficient at all </option>
@@ -295,7 +295,7 @@ function MyProfile() {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formMotherTongue" >
+                                        <Form.Group controlId="form_secondaryLanguage" >
                                             <Form.Control as="select" name="secondaryLanguage" value={formData.secondaryLanguage} onChange={handleChange} required>
                                                 <option value="" disabled>Secondary Language</option>
                                                 <option value="Assamese">Assamese </option>
@@ -325,7 +325,7 @@ function MyProfile() {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formSecondaryLanguage">
+                                        <Form.Group controlId="form_proficiencySecondaryLanguage">
                                             <Form.Control as="select" name="proficiencySecondaryLanguage" value={formData.proficiencySecondaryLanguage} onChange={handleChange} required >
                                                 <option value="" disabled>Proficiency in Secondary Language</option>
                                                 <option value="Not Proficient at all">Not Proficient at all </option>
@@ -339,7 +339,7 @@ function MyProfile() {
                                 </Row>
                                 <Row>
                                     <Col md={6}>
-                                        <Form.Group controlId="formMotherTongue" >
+                                        <Form.Group controlId="form_otherLanguage" >
                                             <Form.Control as="select" name="otherLanguage" value={formData.otherLanguage} onChange={handleChange} required>
                                                 <option value="" disabled>Other Language</option>
                                                 <option value="Assamese">Assamese </option>
@@ -369,7 +369,7 @@ function MyProfile() {
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
-                                        <Form.Group controlId="formSecondaryLanguage" >
+                                        <Form.Group controlId="form_proficiencyOtherLanguage" >
                                             <Form.Control as="select" name="proficiencyOtherLanguage" value={formData.proficiencyOtherLanguage} onChange={handleChange} required >
                                                 <option value="" disabled>Proficiency in Other Language</option>
                                                 <option value="Not Proficient at all">Not Proficient at all </option>
@@ -384,7 +384,7 @@ function MyProfile() {
                                 
                                 <Row>
                                 <Col md={6}>
-                                        <Form.Group controlId="formAgeAcquisitionMotherTongue">
+                                        <Form.Group controlId="form_AgeAcquisitionMotherTongue">
                                             <Form.Label><b>Age of Acquisition - Mother Tongue</b></Form.Label>
                                             <Form.Control type="number" placeholder="Mother Tongue" name="ageAcquisitionMotherTongue" value={formData.ageAcquisitionMotherTongue} onChange={handleChange} required />
                                         </Form.Group>

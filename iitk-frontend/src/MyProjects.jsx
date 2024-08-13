@@ -22,7 +22,7 @@ function MyProjects() {
         name = userInfo.name;
         email = localStorage.getItem('email');
         try {
-            const response = await fetch('http://localhost:4999/get-reg-courses', {
+            const response = await fetch('http://localhost:4997/get-reg-courses', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -59,6 +59,11 @@ function MyProjects() {
     return (
         <div className="homepage">
             <Navbar />
+            <div className="hidden-div-my-projects"></div>
+            <div className="greeting-my-projects">
+                Hi, {JSON.parse(localStorage.userinfo).name}
+            </div>
+
             <div className="banner-area">
                 <img src={bannerImageUrl} alt="Nature" class="responsive" />
             </div>
@@ -68,14 +73,14 @@ function MyProjects() {
             {console.log("desc", cardDescs)} */}
 
         <div className="tags-area">
-            {console.log(cardTitles)}
+            {/* {console.log(cardTitles)} */}
         {
             cardTitles.map((v, index_i) => (
                 <div className="tags">
                     {v.map((value, index_j) => (
                         <div className="card reg-card-my-course">
                         <img className="card-img-top card-img-custom" src={img1Url} alt="Card image cap" />
-                        <div className="card-body card-body-css">
+                        <div className="card-body card-body-css-my-projects">
                             {/* {console.log(JSON.stringify(value))} */}
                             <h5 className="card-title card-title-heading">{Object.keys(value)[0]}</h5>
                             <p className="card-text card-p-text">{cardDescs[index_i][index_j]}</p>
