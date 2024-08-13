@@ -61,7 +61,7 @@ function App() {
   const saveWordFrequency = async (value) => {
     const email = localStorage.getItem('email');
     try {
-      const response = await fetch('http://localhost:4999/save-freq', {
+      const response = await fetch('http://localhost:4997/save-freq', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ function App() {
 
     // let data = null;
     // try {
-    //   data = await fetch(`http://localhost:4999/save-freq?user_id=${userId}&word=${data[1]}&freq=${value}`);
+    //   data = await fetch(`http://localhost:4997/save-freq?user_id=${userId}&word=${data[1]}&freq=${value}`);
     // } catch (error) {
     //   console.error('Error fetching words:', error);
     // }
@@ -99,7 +99,7 @@ function App() {
   const fetchWords = async () => {
     let data = null;
     try {
-      const response = await fetch(`http://localhost:4999/words?slice_of_n=${sliceOfN}&offset_idx=${null}`);
+      const response = await fetch(`http://localhost:4997/words?slice_of_n=${sliceOfN}&offset_idx=${null}`);
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
         data = await response.json();

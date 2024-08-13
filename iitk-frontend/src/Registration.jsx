@@ -12,16 +12,28 @@ function Registration() {
     const [key, setKey] = useState('terms');
     const [isVisiblePopup, setIsVisiblePopup] = useState(false);
 
+    // useEffect(() => {
+    //     if (localStorage.courseName === undefined) {
+    //         navigate('/home')
+    //     }
+    //     if (localStorage.length === 0) {
+    //         navigate('/login')
+    //     } else {
+    //         // getCardsInfo(4);
+    //     }
+    // }, [])
+
     useEffect(() => {
-        if (localStorage.courseName === undefined) {
-            navigate('/home')
+        if (localStorage.courseName === undefined || localStorage.getItem('fromHome') !== 'true') {
+            navigate('/home'); // Redirect if not accessed from the homepage
         }
+        localStorage.removeItem('fromHome'); // Clear flag after use
+        
         if (localStorage.length === 0) {
-            navigate('/login')
-        } else {
-            // getCardsInfo(4);
+            navigate('/login');
         }
-    }, [])
+    }, []);
+    
 
     const togglePopup = () => {
         setIsVisiblePopup(!isVisiblePopup);
@@ -37,7 +49,7 @@ function Registration() {
         } else {
             const email = localStorage.getItem('email');
             const courseName = localStorage.getItem('courseName');
-            const endpoint = 'http://localhost:4999/reg-course';
+            const endpoint = 'http://localhost:4997/reg-course';
             if (courseName !== null) {
                 try {
                     const response = await fetch(endpoint, {

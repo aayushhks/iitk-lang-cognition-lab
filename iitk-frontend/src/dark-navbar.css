@@ -7,12 +7,12 @@
 }
  */
 
- .navbarr {
+.navbarr {
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 3;
-    /* background-color: white; */
+    background-color: black;
 }
 
 .toggle-theme-btn-navbar {
@@ -21,20 +21,20 @@
     appearance: none;
     outline: none;
     cursor: pointer;
-
+    
     width: var(--size);
     height: var(--size);
     box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
     border-radius: 999px;
     color: hsl(240, 100%, 95%);
-
+    
     transition: all 500ms;
-
+    
     &:checked {
       --ray-size: calc(var(--size) * -0.4);
       --offset-orthogonal: calc(var(--size) * 0.65);
       --offset-diagonal: calc(var(--size) * 0.45);
-
+  
       transform: scale(0.75);
       color: hsl(40, 100%, 50%);
       box-shadow: 
@@ -55,7 +55,7 @@
     z-index: 1;
     &:checked {
       & ~ .background {
-        --bg: white;
+        --bg: black;
       }
       & ~ .title {
         --color: hsl(40, 100%, 50%);
