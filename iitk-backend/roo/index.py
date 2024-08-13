@@ -9,22 +9,37 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-print(os.getcwd())
-rel_file_path = './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt'
+
+words = []
+datasets = [
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/english-test-file.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
+]
+
 config_file_path = './roo/db/config.json'
-
-with open(rel_file_path, 'r', encoding="utf-8") as fp:
-    fc = fp.readlines()
-
 with open(config_file_path, 'r', encoding="utf-8") as fp:
     config = json.load(fp)
 
-words = [i.split(';')[0] for i in fc]
 block_size = config['block_size']
 block_count = len(words)//block_size
 
-# df = pd.read_csv(rel_file_path, low_memory=False, on_bad_lines='warn')
-# df = pd.read_csv(rel_file_path, low_memory=False, delimiter="\t")
+def get_dataset(rel_file_path):
+    global words, block_count, block_size
+    with open(rel_file_path, 'r', encoding="utf-8") as fp:
+        fc = fp.readlines()
+
+    words = [i.split(';')[0] for i in fc]
+    block_count = len(words)//block_size
 
 last_used_idx = None
 titles = ['New Imageability', 'New Dominance', 'New Arousal', 'Arousal', 'New Valence', 'Imageability', 'Familiarity', 'Age of Acquisition', 'Concreteness', 'New Concreteness', 'Valence', 'Dominance']
@@ -33,9 +48,15 @@ descs = ['Hindi Word Imageability Norms Survey', 'Hindi Word Dominance Norms Sur
 def chunk_array(arr, s):
     return np.array_split(arr, np.ceil(len(arr) / s).astype(int))
 
-@app.route('/get-block-size')
-def get_block_size():
-    return jsonify(block_size)
+@app.route('/get-block-size/<courseName>', methods=['GET'])
+def get_block_size(courseName):
+    try:
+        dataset_index = titles.index(courseName)
+        dataset_path = datasets[dataset_index]
+        get_dataset(dataset_path)
+        return jsonify(block_size=block_size)
+    except ValueError:
+        return jsonify(error="Course not found"), 404
 
 @app.route('/word')
 def get_word():
@@ -50,14 +71,8 @@ def get_words():
     global last_used_idx, words
 
     data = request.json
-    slice_of_n, offset_idx, email, course = data
+    slice_of_n, offset_idx, email, course, get_last = data
     reuse_words = False
-
-    # slice_of_n = request.args.get('slice_of_n', default=None, type=int)
-    # reuse_words = request.args.get('pop_word', default=False, type=int)
-    # offset_idx = request.args.get('offset_idx', default=None, type=int)
-
-    # df.sort_values(by="frequency", ascending=False, inplace=True)
 
     # temporary db
     os.makedirs("roo/db", exist_ok=True)
@@ -67,17 +82,26 @@ def get_words():
 
     my_projects = saved_data[email].get('myProjects')
     course_deets = my_projects[course]
-    last_used_idx = course_deets["wordsCompleted"]
+    
+    last_used_idx = course_deets.get("wordsCompleted")
+    if get_last:
+        if last_used_idx != 0:
+            last_used_idx -= 1
+
+    if last_used_idx is None:
+        last_used_idx = 0
 
     if slice_of_n is not None:
         if reuse_words:
-            # words = words.iloc[:slice_of_n]
             res = words[:slice_of_n]
         else:
             if offset_idx is not None:
                 last_used_idx = offset_idx
 
-            res = words[last_used_idx: last_used_idx+slice_of_n]
+            if last_used_idx > len(words):
+                res = [[]]
+            else:
+                res = words[last_used_idx: last_used_idx+slice_of_n]
             last_used_idx += slice_of_n
 
             saved_data[email]['myProjects'][course]["wordsCompleted"] = last_used_idx
@@ -91,11 +115,6 @@ def get_words():
 @app.route('/get-unreg-courses', methods=['POST'])
 def get_unreg_courses():
     email, chunk_size = request.json
-    print(email, chunk_size)
-
-    # email = request.args.get('email', default=None, type=int)
-    # word = request.args.get('word', default=None, type=int)
-    # freq = request.args.get('freq', default=None, type=int)
 
     sha256 = hashlib.sha256()
     sha256.update(email.encode('utf-8'))
@@ -128,15 +147,10 @@ def get_unreg_courses():
 @app.route('/get-reg-courses', methods=['POST'])
 def get_reg_courses():
     email, chunk_size = request.json
-    print('\n', email, chunk_size)
-
-    # email = request.args.get('email', default=None, type=int)
-    # word = request.args.get('word', default=None, type=int)
-    # freq = request.args.get('freq', default=None, type=int)
 
     sha256 = hashlib.sha256()
     sha256.update(email.encode('utf-8'))
-    email_hash = sha256.hexdigest()
+    # email_hash = sha256.hexdigest()
 
     # temporary db
     os.makedirs("roo/db", exist_ok=True)
@@ -145,20 +159,16 @@ def get_reg_courses():
         saved_data = json.load(fp)
 
     my_projects = saved_data[email].get('myProjects')
-    print(my_projects)
 
     if my_projects is None or my_projects == []:
         t = []
         d = []
-        # t = [i.tolist() for i in chunk_array(titles, chunk_size)]
-        # d = [i.tolist() for i in chunk_array(descs, chunk_size)]
         return jsonify([t, d, block_count])
 
     t = my_projects
     d = [descs[titles.index(k)] for k in my_projects.keys()]
-    t = [{k:v} for k, v in t.items()]
-    # d = [desc for desc, course in zip(descs, titles) if course in my_projects]
 
+    t = [{k:v} for k, v in t.items()]
     t = [i.tolist() for i in chunk_array(t, chunk_size)]
     d = [i.tolist() for i in chunk_array(d, chunk_size)]
 
@@ -169,21 +179,15 @@ def reg_course():
     data = request.json
     email, course = data
 
-    print(email)
-    print(course)
-
-    # email = request.args.get('email', default=None, type=int)
-    # word = request.args.get('word', default=None, type=int)
-    # freq = request.args.get('freq', default=None, type=int)
-
     sha256 = hashlib.sha256()
     sha256.update(email.encode('utf-8'))
     email_hash = sha256.hexdigest()
 
     # temporary db
     os.makedirs("roo/db", exist_ok=True)
-    user_file = f"roo/db/users.json"
-    with open(user_file, 'r', encoding='utf-8') as fp:
+    db_file = f"roo/db/users.json"
+    user_file = f"roo/db/{email_hash}"
+    with open(db_file, 'r', encoding='utf-8') as fp:
         saved_data = json.load(fp)
 
     msg = "Course successfully registered"
@@ -202,26 +206,15 @@ def reg_course():
     else:
         saved_data[email]['myProjects'].update(course_info)
 
-    # if course in saved_data['myProjects']:
-    #     saved_data['myProjects'].remove(course)
-    #     msg = "Course successfully unregistered"
-    # else:
-    #     saved_data['myProjects'].append(course)
-    #     msg = "Course successfully registered"
-
-    with open(user_file, 'w', encoding='utf-8') as fp:
+    with open(db_file, 'w', encoding='utf-8') as fp:
         json.dump(saved_data, fp, indent=2)
 
     return jsonify({"success": True, "msg": msg})
 
-@app.route('/save-freq', methods=['POST'])
-def save_freq():
+@app.route('/export-data', methods=["POST"])
+def generate_excel():
     data = request.json
-    email, word, freq = data
-    print(email, word, freq)
-    # email = request.args.get('email', default=None, type=int)
-    # word = request.args.get('word', default=None, type=int)
-    # freq = request.args.get('freq', default=None, type=int)
+    email = data
 
     sha256 = hashlib.sha256()
     sha256.update(email.encode('utf-8'))
@@ -231,10 +224,32 @@ def save_freq():
     os.makedirs("roo/db", exist_ok=True)
     user_file = f"roo/db/{email_hash}"
 
-    if word is not None:
-        word = words[last_used_idx-2]
-        with open(user_file, 'a', encoding='utf-8') as fp:
-            fp.write(f"{word}: {freq},\n")
+    with open(user_file, 'r', encoding='utf-8') as fp:
+        saved_data = json.load(fp)
+
+    df = pd.DataFrame(saved_data)
+    df = df.reset_index()
+    df = df.rename(columns={'index': 'word'})
+    df.to_csv(f"exported_data_{email_hash}")
+
+    return jsonify({"success": True, "msg": "Data exported successfully"})
+
+@app.route('/save-freq', methods=['POST'])
+def save_freq():
+    data = request.json
+    email, course_name, word, freq = data
+
+    sha256 = hashlib.sha256()
+    sha256.update(email.encode('utf-8'))
+    email_hash = sha256.hexdigest()
+
+    # temporary db
+    os.makedirs("roo/db", exist_ok=True)
+    user_file = f"roo/db/{email_hash}"
+
+    if not os.path.isfile(user_file):
+        with open(user_file, 'w', encoding='utf-8') as fp:
+            json.dump({course_name: {word: freq}}, fp, indent=2)
 
         return jsonify({
             "success": True,
@@ -244,6 +259,31 @@ def save_freq():
                 "freq": freq,
             }
         })
+
+    if word is not None:
+        word = words[last_used_idx-2]
+
+        with open(user_file, 'r', encoding='utf-8') as fp:
+            user_data = json.load(fp)
+        
+        if user_data is not None:
+            info = {word: freq}
+            if course_name in user_data:
+                user_data[course_name].update(info)
+            else:
+                user_data[course_name] = info
+
+            with open(user_file, 'w', encoding='utf-8') as fp:
+                json.dump(user_data, fp, indent=2)
+
+            return jsonify({
+                "success": True,
+                "email_hash": email_hash,
+                "saved_word_info": {
+                    "word": word,
+                    "freq": freq,
+                }
+            })
 
     return jsonify({"success": False, "email_hash": email_hash})
 
@@ -285,12 +325,9 @@ def get_profile():
             saved_data = json.load(fp)
 
     my_profile = saved_data[email]
-    # print(my_profile)
 
-    # print(my_details)
     return jsonify({"success": True, "profile": my_profile})
 
-    # my_profile = request.json.get('formData')
     if my_profile is None:
         msg = ('Please enter your profile')
         return jsonify({"success": False, "msg": msg})
@@ -300,9 +337,6 @@ def get_profile():
 def update_profile():
     updated_profile = request.json.get('formData')
     email = request.json.get('email')
-    new_email = updated_profile.pop('email')
-
-    # email_updated = (email == new_email)
 
     if updated_profile is None:
         msg = ('Please enter your profile')
@@ -316,24 +350,12 @@ def update_profile():
         with open(db_file, 'r', encoding='utf-8') as fp:
             saved_data = json.load(fp)
 
-    print(email)
-    print(updated_profile)
-
     # Update details
     saved_data[email].update(updated_profile)
-
-    # if email_updated:
-    #     # Update email
-    #     saved_data[updated_profile.email] = saved_data.pop(email)
-
-    print('=====')
-    print(saved_data[email])
-    # print('---')
 
     with open(db_file, 'w', encoding='utf-8') as fp:
         json.dump(saved_data, fp, indent=2)
 
-    # print(updated_profile)
     msg = ('Your profile has been updated')
     return jsonify({"success": False, "msg": msg})
 
@@ -353,7 +375,6 @@ def signup():
     email = form_data['email']
 
     if os.path.isfile(db_file):
-        # print(saved_data.keys(), email)
         if email in saved_data.keys():
             msg = "User already registered"
             return jsonify({"success": False, "msg": msg})
@@ -370,6 +391,5 @@ def signup():
     return jsonify({"success": True, "msg": msg})
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True, port=4999)
-
+    app.run(host='127.0.0.1', debug=True, port=4997)
 
