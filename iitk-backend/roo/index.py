@@ -13,7 +13,7 @@ CORS(app)
 words = []
 datasets = [
     './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
-    './data/Corpus_Processing_Outcomes/english-test-file.txt',
+    './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
     './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
     './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
     './data/Corpus_Processing_Outcomes/Hindi_word_frpm_96122.txt',
@@ -31,6 +31,7 @@ with open(config_file_path, 'r', encoding="utf-8") as fp:
     config = json.load(fp)
 
 block_size = config['block_size']
+checkpoint_size = config['checkpoint_size']
 block_count = len(words)//block_size
 
 def get_dataset(rel_file_path):
@@ -58,13 +59,17 @@ def get_block_size(courseName):
     except ValueError:
         return jsonify(error="Course not found"), 404
 
-@app.route('/word')
-def get_word():
-    global words
-    word_idx = request.args.get('word_idx', default=None, type=int)
-    if word_idx is None:
-        return "None"
-    return words[word_idx]
+# @app.route('/word')
+# def get_word():
+#     return 2
+    # wd = get_dataset(datasets[0])
+    # # global words
+    # # print(words)
+    # word_idx = request.args.get('word_idx', default=None, type=int)
+    # # if word_idx is None:
+    # #     return "None"
+    # return wd[word_idx]
+    # return words[word_idx]
 
 @app.route('/words', methods=['POST'])
 def get_words():
@@ -213,6 +218,7 @@ def reg_course():
 
 @app.route('/export-data', methods=["POST"])
 def generate_excel():
+    global checkpoint_size
     data = request.json
     email = data
 
@@ -230,7 +236,13 @@ def generate_excel():
     df = pd.DataFrame(saved_data)
     df = df.reset_index()
     df = df.rename(columns={'index': 'word'})
-    df.to_csv(f"exported_data_{email_hash}")
+    df.to_csv(f"exported_data_{email_hash}.csv")
+
+    # Save DataFrame to different checkpoints
+    checkpoint_idx = last_used_idx//checkpoint_size
+    print('cp:', checkpoint_idx)
+    with pd.ExcelWriter(f"exported_data_{email_hash}.xlsx", engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name=f"checkpoint_{checkpoint_idx + 1}", index=False)
 
     return jsonify({"success": True, "msg": "Data exported successfully"})
 
@@ -391,5 +403,5 @@ def signup():
     return jsonify({"success": True, "msg": msg})
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True, port=4997)
+    app.run(host='0.0.0.0', debug=True, port=4997)
 

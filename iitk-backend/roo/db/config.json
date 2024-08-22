@@ -1,3 +1,4 @@
 {
-    "block_size": 270
+    "block_size": 270,
+    "checkpoint_size": 90
 }
