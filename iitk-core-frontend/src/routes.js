@@ -6,6 +6,8 @@ const Typography = React.lazy(() => import('./views/theme/typography/Typography'
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
+const Admintable = React.lazy(() => import('./views/base/Admintable/Admintable'))
+const optedSurveys = React.lazy(() => import('./views/base/opted-surveys/opted-surveys'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
 const Cards = React.lazy(() => import('./views/base/cards/Cards'))
 const Carousels = React.lazy(() => import('./views/base/carousels/Carousels'))
@@ -72,6 +74,8 @@ const routes = [
   { path: '/base/spinners', name: 'Spinners', element: Spinners },
   { path: '/base/tabs', name: 'Tabs', element: Tabs },
   { path: '/base/tables', name: 'Tables', element: Tables },
+  { path: '/base/Admintable', name: 'Admintable', element: Admintable },
+  { path: '/base/opted-surveys', name: 'opted-surveys', element: optedSurveys },
   { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
   { path: '/buttons', name: 'Buttons', element: Buttons, exact: true },
   { path: '/buttons/buttons', name: 'Buttons', element: Buttons },

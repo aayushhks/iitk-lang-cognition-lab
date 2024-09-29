@@ -21,7 +21,7 @@ const Layout = () => {
   const [adminSettings, setAdminSettings] = useState({});
 
   const getAdminSettings = async () => {
-    const endpoint = "http://192.168.134.128:4997/get-admin-settings";
+    const endpoint = "http://127.0.0.1:4997/get-admin-settings";
     try {
         const response = await fetch(endpoint, {
             method: 'GET',
@@ -104,7 +104,7 @@ const Layout = () => {
               More complex layouts can also be created with the grid system.
             </p> */}
             <DocsExample href="forms/layout#gutters">
-              <CForm className="row g-3" action="http://http://192.168.134.128:4997/update-admin-settings" method="POST">
+              <CForm className="row g-3" action="http://http://127.0.0.1:4997/update-admin-settings" method="POST">
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputSiteTitle">Site Title</CFormLabel>
                   <CFormInput id="inputSiteTitle" placeholder="Enter site title" />

@@ -1,4 +1,4 @@
-import './Tables.css';
+// import './Tables.css';
 import React, { useState, useEffect } from "react";
 import {
   CButton,
@@ -24,7 +24,7 @@ const Tables = () => {
     // const email = localStorage.email;
     // console.log('kool:', email);
     try {
-      const response = await fetch(`http://192.168.134.128:4997/get-completed-course-count`, {
+      const response = await fetch(`http://127.0.0.1:4997/get-completed-course-count`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const Tables = () => {
 
   const get_users_data = async () => {
     try {
-      const response = await fetch(`http://192.168.134.128:4997/get-users-data`, {
+      const response = await fetch(`http://127.0.0.1:4997/get-users-data`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -66,9 +66,7 @@ const Tables = () => {
 
       const result = await response.json();
       if (result.success === true) {
-        // await get_completed_course_count();
         setUsersData(result.data || {}); // Ensure it's an object
-        // console.log("Fetched data: ", result.data);
       } else {
         console.log("Error: ", result.err);
       }
@@ -76,22 +74,6 @@ const Tables = () => {
       console.log('An error occurred:', error);
     }
   };
-
-  // const getSumOfWordsCompleted = (projects) => {
-  //   if (!projects) return 0;  // Ensure projects is not undefined
-  //   return Object.values(projects).reduce((sum, project) => {
-  //     return sum + (project.wordsCompleted || 0);
-  //   }, 0);
-  // };
-
-  // const calculateWordsCompletedSum = (data) => {
-  //   return Object.values(data).reduce((totalSum, user) => {
-  //     const projects = user.myProjects || {};
-  //     return totalSum + getSumOfWordsCompleted(projects);
-  //   }, 0);
-  // };
-
-  // const totalWordsCompleted = calculateWordsCompletedSum(usersData);
 
   // Convert the data into an array of rows
   const getRows = async () => {
@@ -109,7 +91,7 @@ const Tables = () => {
 
         return (
           <CTableRow>
-            <CTableDataCell className="w-25">{email}</CTableDataCell>
+            {/* <CTableDataCell className="w-25">{email}</CTableDataCell> */}
             <CTableDataCell className="w-25">{details.name}</CTableDataCell>
             <CTableDataCell className="w-25">{details.dateOfBirth}</CTableDataCell>
             <CTableDataCell className="w-25">{details.ageAcquisitionMotherTongue}</CTableDataCell>
@@ -131,7 +113,7 @@ const Tables = () => {
       }
     }));
   };
-    
+
   useEffect(() => {
     // Call get_users_data initially
     get_users_data();
@@ -164,7 +146,7 @@ const Tables = () => {
   const handleEdit = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://192.168.134.128:4997/edit-user-account`, {
+      const response = await fetch(`http://127.0.0.1:4997/edit-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +173,7 @@ const Tables = () => {
   const handleDelete = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://192.168.134.128:4997/delete-user-account`, {
+      const response = await fetch(`http://127.0.0.1:4997/delete-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,40 +207,38 @@ const Tables = () => {
       );
     } else {
       return (
-      // <CTableHead>
-      <CTableRow>
-        <CTableHeaderCell scope="col" className="w-25">
-          Email
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Name
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          D.O.B
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Mother Tongue
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Current Location
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Hail from
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Survey Registered
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Survey Completed
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Words Rated
-        </CTableHeaderCell>
-        <CTableHeaderCell scope="col" className="w-25">
-          Action
-        </CTableHeaderCell>
-      </CTableRow>
-    // </CTableHead>
+        <CTableRow>
+            <CTableHeaderCell scope="col" className="w-25">
+            Customer Name
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            SurveyId
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Survey Name
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Date Time
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Credits
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Word Attempted
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Status
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Block Size
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Block Completed
+            </CTableHeaderCell>
+            <CTableHeaderCell scope="col" className="w-25">
+            Action
+            </CTableHeaderCell>
+        </CTableRow>
       );
     }
   }
@@ -280,31 +260,7 @@ const Tables = () => {
             <CTableBody>
               {header()}
               {(Object.keys(usersData).length !== 0) ? rows : null}
-              {/* {rows.length ? rows : <CTableRow><CTableDataCell colSpan="10" className="text-center">No records found</CTableDataCell></CTableRow>} */}
-              {/* <CTableRow>
-                {
-                  usersData.map((item, index) => (
-                    <CTableData key={index}>
-                      <CTableCell>{item.email}</CTableCell>
-                    </CTableData>
-                  ))
-                }
-                <CTableDataCell>
-                  MAKIchew
-                </CTableDataCell>
-              </CTableRow>
-              <CTableRow align="bottom">
-              </CTableRow>
-              <CTableRow>
-                <CTableDataCell>
-                  This cell inherits <code>vertical-align: middle;</code> from the table
-                </CTableDataCell>
-                <CTableDataCell>
-                  hehe lol <code>colorful</code> from the table
-                </CTableDataCell>
-                <CTableDataCell align="top">This cell is aligned to the top.</CTableDataCell>
-              </CTableRow> */}
-            </CTableBody>
+           </CTableBody>
           </CTable>
           </DocsExample>
           </CCardBody>
