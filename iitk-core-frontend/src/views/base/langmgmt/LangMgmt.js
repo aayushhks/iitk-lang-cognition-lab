@@ -162,7 +162,7 @@ const LangMgmt = () => {
   const handleDelete = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://10.162.20.250:4997/delete-user-account`, {
+      const response = await fetch(`${ip[0]}/delete-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
