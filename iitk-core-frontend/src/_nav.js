@@ -36,21 +36,21 @@ const _nav = [
     to: '/base',
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
-      {
-        component: CNavItem,
-        name: 'List group',
-        to: '/base/list-groups',
-      },
-      {
-        component: CNavItem,
-        name: 'Placeholders',
-        to: '/base/placeholders',
-      },
-      {
-        component: CNavItem,
-        name: 'Spinners',
-        to: '/base/spinners',
-      },
+      // {
+      //   component: CNavItem,
+      //   name: 'List group',
+      //   to: '/base/list-groups',
+      // },
+      // {
+      //   component: CNavItem,
+      //   name: 'Placeholders',
+      //   to: '/base/placeholders',
+      // },
+      // {
+      //   component: CNavItem,
+      //   name: 'Spinners',
+      //   to: '/base/spinners',
+      // },
       {
         component: CNavItem,
         name: 'Tables',
@@ -65,14 +65,14 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Languages',
-    to: '/theme/Languages',
+    name: 'Language Management',
+    to: '/base/langmgmt',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Surveys',
-    to: '/theme/Surveys',
+    to: '/base/surveys',
     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
   },
   {
@@ -88,24 +88,24 @@ const _nav = [
       },
     ]
   },
-  {
-    component: CNavItem,
-    name: 'Page',
-    to: '/theme/Page',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Page',
+  //   to: '/theme/Page',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: 'Setting',
     to: '/forms/layout',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'Charts',
-    to: '/charts',
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Charts',
+  //   to: '/charts',
+  //   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  // },
 ]
 
 export default _nav
