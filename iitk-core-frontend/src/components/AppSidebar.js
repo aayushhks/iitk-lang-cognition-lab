@@ -13,7 +13,8 @@ import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import { logo } from 'src/assets/brand/logo'
+// import { logo } from 'src/assets/brand/logo'
+import logo from 'src/assets/images/manipal-light-logo.svg'
 import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
@@ -23,6 +24,8 @@ const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
+
+  // const logo = "https://w7.pngwing.com/pngs/636/41/png-transparent-manipal-academy-of-higher-education-manipal-institute-of-technology-kasturba-medical-college-manipal-international-university-manipal-university-dubai-manipal-university.png"
 
   return (
     <CSidebar
@@ -37,7 +40,10 @@ const AppSidebar = () => {
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">
-          <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />
+          <div>
+            <img src={logo} alt="Logo" width={200}/>
+          </div>
+          {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
           <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
         </CSidebarBrand>
         <CCloseButton
