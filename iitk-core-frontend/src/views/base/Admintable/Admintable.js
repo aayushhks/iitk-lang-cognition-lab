@@ -53,7 +53,7 @@ const AdMgmtTables = () => {
 
   const get_ad_mgmt_table = async () => {
     try {
-      const endpoint = `http://10.162.20.250:4997/get-ad-mgmt-table`;
+      const endpoint = `${ip[0]}/get-ad-mgmt-table`;
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -134,7 +134,7 @@ const AdMgmtTables = () => {
   const handleEdit = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://10.162.20.250:4997/edit-user-account`, {
+      const response = await fetch(`${ip[0]}/edit-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ const AdMgmtTables = () => {
   const handleDelete = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://10.162.20.250:4997/delete-user-account`, {
+      const response = await fetch(`${ip[0]}/edit-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
