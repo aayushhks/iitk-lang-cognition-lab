@@ -29,7 +29,7 @@ const App = () => {
 
   const getAdminTokenIsValid = async (token) => {
     try {
-      const endpoint = `http://10.162.20.250:4997/is-token-valid`;
+      const endpoint = `${ip[0]}/is-token-valid`;
 
       const response = await fetch(endpoint, {
         method: 'GET',
