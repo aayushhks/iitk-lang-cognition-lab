@@ -42,7 +42,7 @@ const Tables = () => {
 
   const get_cust_mgmt_data = async (filter, export_) => {
     try {
-      const response = await fetch(`http://10.162.20.250:4997/get-cust-mgmt-data`, {
+      const response = await fetch(`${ip[0]}/get-cust-mgmt-data`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const Tables = () => {
   const handleEdit = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://10.162.20.250:4997/edit-user-account`, {
+      const response = await fetch(`${ip[0]}/edit-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ const Tables = () => {
   const handleDelete = async (email) => {
     // Call the edit function from the API
     try {
-      const response = await fetch(`http://10.162.20.250:4997/delete-user-account`, {
+      const response = await fetch(`${ip[0]}/delete-user-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
