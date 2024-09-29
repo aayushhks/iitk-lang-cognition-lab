@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar.js";
 import Footer from "./Footer.jsx";
 
+import { ip } from './config.js'
+
 import getInstructionComponent from "./instructionGetter.js";
 
 function Course() {
@@ -25,6 +27,23 @@ function Course() {
 
   const navigate = useNavigate();
 
+  const handleCourseComplete = async () => {
+    const email = localStorage.getItem("email");
+    const courseName = localStorage.getItem("courseName");
+    try {
+      const response = await fetch(`${ip[0]}/course-completion-update`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email, courseName}),
+      });
+
+    } catch (error) {
+      console.log("An error occurred", error);
+    }
+  };
+
   const updateWords = async (get_last) => {
     data_ = await fetchWords(get_last);
 
@@ -39,8 +58,9 @@ function Course() {
     console.log(data_); // data_
 
     if ((data_[2].length === 0 && data_[2][0] === undefined) ||
-         data_[2][0].length === 0 && data_[2][0][0] === undefined) {
+          data_[2][0].length === 0 && data_[2][0][0] === undefined) {
           data_[2][0] = "(course completed)";
+          handleCourseComplete();
     } else {
       saveWordFrequency(wordFreq, data_[2][0]);
     }
@@ -122,7 +142,6 @@ function Course() {
     // // Clean up the timer when the component unmounts
     // return () => clearTimeout(timer);
   }, []);
-  
 
   useEffect(() => {
     const handleClickOutsideButtons = (event) => {
@@ -186,15 +205,10 @@ function Course() {
     setWordFrequency(value);
   };
 
-  // const [blockIndex, setBlockIndex] = useState(-1);
-  // const [isVisiblePopup, setIsVisiblePopup] = useState(false);
-  // const [blockSize, setBlockSize] = useState(0);
-
-  // let blockSizeVar = 0;
   const getBlockSize = async (val) => {
     const courseName = localStorage.getItem("courseName");
     try {
-        const response = await fetch(`http://localhost:4997/get-block-size/${courseName}`, {
+        const response = await fetch(`${ip[0]}/get-block-size/${courseName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -221,7 +235,7 @@ function Course() {
     const email = localStorage.getItem("email");
     const courseName = localStorage.getItem("courseName");
     try {
-      const response = await fetch("http://localhost:4997/save-freq", {
+      const response = await fetch(`${ip[0]}/save-freq`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -230,16 +244,6 @@ function Course() {
         body: JSON.stringify([email, courseName, word, value]),
       });
 
-      // const result = await response.json();
-
-      // // console.log(result);
-      // if (result.success === true) {
-      //   // Valid Login
-      //   console.log("yay");
-      // } else {
-      //   // Invalid Login
-      //   console.log("no");
-      // }
     } catch (error) {
       console.log("An error occurred", error);
     }
@@ -268,7 +272,7 @@ function Course() {
     if (localStorage.courseName === undefined) {
       navigate("/home");
     }
-    if (localStorage.length === 0) {
+    if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
       navigate("/login");
     }
     else {
@@ -282,7 +286,7 @@ function Course() {
 
   const exportData = async () => {
     const email = localStorage.getItem("email");
-    const endpoint = "http://localhost:4997/export-data";
+    const endpoint = `${ip[0]}/export-data`;
     try {
       const response = await fetch(endpoint,
         {
@@ -302,7 +306,7 @@ function Course() {
   const fetchWords = async (get_last) => {
     let data_ = null;
     const email = localStorage.getItem("email");
-    const endpoint = "http://localhost:4997/words";
+    const endpoint = `${ip[0]}/words`;
     try {
       const response = await fetch(endpoint,
         {
