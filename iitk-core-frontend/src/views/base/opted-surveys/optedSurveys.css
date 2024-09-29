@@ -1,0 +1,27 @@
+.view-opted-surveys-btn {
+    text-decoration: underline;
+    color: orange;
+    cursor: pointer;
+}
+
+.view-opted-surveys-btn:hover {
+    color: hotpink;
+    cursor: pointer;
+}
+
+.no-recs-opted-surveys {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
+    height: 100%;            /* Ensure it takes the full height of the table */
+    width: 100%;             /* Ensure it takes the full width of the table */
+    min-height: 200px;       /* Optional: Set a minimum height if needed */
+    text-align: center;      /* Center the text */
+    font-size: 1.5em;        /* Adjust the font size */
+    color: #6c757d;          /* Optional: Muted color */
+}
+
+.no-recs-cell-opted-surveys {
+    text-align: center; /* Ensure content is centered within the cell */
+    padding: 50px 0;    /* Add some padding to space it out vertically */
+}
