@@ -69,7 +69,7 @@ const WidgetsDropdown = (props) => {
 
   const get_users_online = async () => {
     try {
-        const response = await fetch('http://127.0.0.1:4997/get-online-count', {
+        const response = await fetch(`${ip[0]}/get-online-count`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const WidgetsDropdown = (props) => {
 
   const get_reg_count = async () => {
     try {
-        const response = await fetch('http://127.0.0.1:4997/get-registered-count', {
+        const response = await fetch(`${ip[0]}/get-registered-count`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ const WidgetsDropdown = (props) => {
 
   const get_candidates = async () => {
     try {
-        const response = await fetch('http://127.0.0.1:4997/get-candidates', {
+        const response = await fetch(`${ip[0]}/get-candidates`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ const WidgetsDropdown = (props) => {
 
   const get_total_surveys = async () => {
     try {
-        const response = await fetch('http://127.0.0.1:4997/get-total-surveys', {
+        const response = await fetch(`${ip[0]}/get-total-surveys`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
