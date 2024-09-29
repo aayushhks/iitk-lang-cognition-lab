@@ -3,6 +3,7 @@ import Navbar from './navbar.js';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyProjects.css';
+import { ip } from './config'
 
 function MyProjects() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function MyProjects() {
         name = userInfo.name;
         email = localStorage.getItem('email');
         try {
-            const response = await fetch('http://localhost:4997/get-reg-courses', {
+            const response = await fetch(`${ip[0]}/get-reg-courses`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ function MyProjects() {
     }
 
     useEffect(() => {
-        if (localStorage.length === 0) {
+        if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
             navigate('/login')
         } else {
             getCardsInfo(4);
