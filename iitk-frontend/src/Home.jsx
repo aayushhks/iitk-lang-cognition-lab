@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from './navbar.js';
 import Footer from './Footer.jsx';
 import { useNavigate } from 'react-router-dom';
+import { ip } from './config'
 
 function HomePage() {
 
@@ -58,7 +59,7 @@ function HomePage() {
         setName(userInfo.name);
         email = localStorage.getItem('email');
         try {
-            const response = await fetch('http://localhost:4997/get-unreg-courses', {
+            const response = await fetch(`${ip[0]}/get-unreg-courses`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ function HomePage() {
     }
 
     useEffect(() => {
-        if (localStorage.length === 0) {
+        if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
             navigate('/login')
         } else {
             getCardsInfo(4);
