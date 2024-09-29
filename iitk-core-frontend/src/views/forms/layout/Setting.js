@@ -15,13 +15,13 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
+// import { DocsExample } from 'src/components'
 
 const Layout = () => {
-  const [adminSettings, setAdminSettings] = useState({});
+  // const [formData, setFormData] = useState({});
 
-  const getAdminSettings = async () => {
-    const endpoint = "http://127.0.0.1:4997/get-admin-settings";
+  const getFormData = async () => {
+    const endpoint = `${ip[0]}/get-admin-settings`;
     try {
         const response = await fetch(endpoint, {
             method: 'GET',
@@ -38,7 +38,9 @@ const Layout = () => {
 
         console.log('admin settings:', result.data);
         if (result.success === true) {
-          setAdminSettings(result.data);
+          console.log('loaded form data: ', result);
+          updateFormValues(result.data);
+          // setFormData(result.data);
         } else {
           console.log(result.msg);
         }
@@ -47,12 +49,59 @@ const Layout = () => {
     }
   }
 
-  useEffect(() => {
-    console.log(adminSettings);
-  }, [adminSettings])
+  const [formData, setFormData] = useState({
+    inputSiteTitle: '',
+    inputTagline: '',
+    inputCompanyAddresses: '',
+    inputCopyrightText: '',
+    inputMailServer: '',
+    inputLogin: '',
+    inputPwd: '',
+    inputPort: '',
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${ip[0]}/update-admin-settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  // Function to update form values
+  const updateFormValues = (newValues) => {
+    setFormData(newValues);
+  };
 
   useEffect(() => {
-    getAdminSettings();
+    console.log('changedd: ', formData);
+  }, [formData])
+
+  useEffect(() => {
+    getFormData();
   }, [])
 
   return (
@@ -83,7 +132,8 @@ const Layout = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Layout</strong> <small>Gutters</small>
+            {/* <strong>Layout</strong> <small>Gutters</small> */}
+            <strong>Admin Settings</strong>
           </CCardHeader>
           <CCardBody>
             {/* <p className="text-body-secondary small">
@@ -103,43 +153,44 @@ const Layout = () => {
             <p className="text-body-secondary small">
               More complex layouts can also be created with the grid system.
             </p> */}
-            <DocsExample href="forms/layout#gutters">
-              <CForm className="row g-3" action="http://http://127.0.0.1:4997/update-admin-settings" method="POST">
+            {/* <DocsExample href="forms/layout#gutters"> */}
+              {/* <CForm className="row g-3" action="${ip[0]}/update-admin-settings" method="POST"> */}
+              <CForm className="row g-3" onSubmit={handleSubmit}>
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputSiteTitle">Site Title</CFormLabel>
-                  <CFormInput id="inputSiteTitle" placeholder="Enter site title" />
+                  <CFormInput id="inputSiteTitle" placeholder="Enter site title" value={formData.inputSiteTitle} onChange={handleChange} />
                 </CCol>
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputTagline">Tagline</CFormLabel>
-                  <CFormInput id="inputTagline" placeholder="Enter tagline" />
+                  <CFormInput id="inputTagline" placeholder="Enter tagline" value={formData.inputTagline} onChange={handleChange} />
                 </CCol>
                 <CCol xs={12}>
                   <CFormLabel htmlFor="inputEmail">Email Address</CFormLabel>
-                  <CFormInput type="email" id="inputEmail" />
+                  <CFormInput type="email" id="inputEmail" value={formData.inputEmail} onChange={handleChange} />
                 </CCol>
                 <CCol xs={12}>
                   <CFormLabel htmlFor="inputCompanyAddresses">Company Addresses</CFormLabel>
-                  <CFormInput type="email" id="inputCompanyAddresses" />
+                  <CFormInput type="email" id="inputCompanyAddresses" value={formData.inputCompanyAddresses} onChange={handleChange} />
                 </CCol>
                 <CCol xs={12}>
                   <CFormLabel htmlFor="inputCopyrightText">Copyright Text</CFormLabel>
-                  <CFormInput type="email" id="inputCopyrightText" />
+                  <CFormInput id="inputCopyrightText" value={formData.inputCopyrightText} onChange={handleChange} />
                 </CCol>
                 <CCol md={6}>
-                  <CFormLabel htmlFor="inputPassword4">Mail Server</CFormLabel>
-                  <CFormInput placeholder="Enter mail server" id="inputPassword4" />
+                  <CFormLabel htmlFor="inputMailServer">Mail Server</CFormLabel>
+                  <CFormInput placeholder="Enter mail server" id="inputMailServer" value={formData.inputMailServer} onChange={handleChange} />
                 </CCol>
                 <CCol md={6}>
-                  <CFormLabel htmlFor="inputPassword4">Login</CFormLabel>
-                  <CFormInput placeholder="Enter username" id="inputPassword4" />
+                  <CFormLabel htmlFor="inputLogin">Login</CFormLabel>
+                  <CFormInput placeholder="Enter username" id="inputLogin" value={formData.inputLogin} onChange={handleChange} />
                 </CCol>
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputPwd">Password</CFormLabel>
-                  <CFormInput type="password" id="inputPwd" />
+                  <CFormInput type="password" id="inputPwd" value={formData.inputPwd} onChange={handleChange} />
                 </CCol>
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputPort">Port</CFormLabel>
-                  <CFormInput type="number" min="0" max="9999" id="inputPort" />
+                  <CFormInput type="number" min="0" max="9999" id="inputPort" value={formData.inputPort} onChange={handleChange} />
                 </CCol>
                 {/* <CCol md={4}>
                   <CFormLabel htmlFor="inputState">State</CFormLabel>
@@ -164,7 +215,7 @@ const Layout = () => {
                   </CButton>
                 </CCol>
               </CForm>
-            </DocsExample>
+            {/* </DocsExample> */}
           </CCardBody>
         </CCard>
       </CCol>
