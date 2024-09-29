@@ -4,6 +4,7 @@ import './SignUp.css';
 
 import Navbar from './navbar.js';
 // import Footer from './Footer.jsx';
+import { ip } from './config';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -54,7 +55,7 @@ const SignUp = () => {
         console.log(formData);
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4997/signup', {
+            const response = await fetch(`${ip[0]}/signup`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
