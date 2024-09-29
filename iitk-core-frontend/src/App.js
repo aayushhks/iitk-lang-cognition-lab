@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { CSpinner, useColorModes } from '@coreui/react';
 import './scss/style.scss';
-import { ip } from '../../iitk2/lang-cognition-lab/iitk-frontend/src/config.js';
+// import { ip } from '../../iitk2/lang-cognition-lab/iitk-frontend/src/config.js';
 // import Authentication from './views/pages/Authentication';
 
 // Containers
@@ -15,8 +15,8 @@ const Login = React.lazy(() => import('./views/pages/login/Login'));
 const Register = React.lazy(() => import('./views/pages/register/Register'));
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'));
-const Logout = React.lazy(() => import('./views/pages/Logout'));
-const Authentication = React.lazy(() => import('./views/pages/Authentication'));
+// const Logout = React.lazy(() => import('./views/pages/Logout'));
+// const Authentication = React.lazy(() => import('./views/pages/Authentication'));
 
 const App = () => {
   // const navigate = useNavigate();
@@ -100,13 +100,12 @@ const App = () => {
       >
 
         <Routes>
-          <Route exact path="/auth/:token" name="Authentication" element={
+          {/* <Route exact path="/auth/:token" name="Authentication" element={
             <Authentication
               setIsAuthRouteDone={setIsAuthRouteDone}
             />
           } />
-          <Route exact path="/logout" name="Logout" element={<Logout />} />
-          {
+          <Route exact path="/logout" name="Logout" element={<Logout />} /> */}          {
             (adminLoggedIn)
             &&
             (
