@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import getInstructionComponent from "./instructionGetter.js";
+import { ip } from './config'
 
 function Registration() {
     const navigate = useNavigate();
@@ -12,24 +13,13 @@ function Registration() {
     const [key, setKey] = useState('terms');
     const [isVisiblePopup, setIsVisiblePopup] = useState(false);
 
-    // useEffect(() => {
-    //     if (localStorage.courseName === undefined) {
-    //         navigate('/home')
-    //     }
-    //     if (localStorage.length === 0) {
-    //         navigate('/login')
-    //     } else {
-    //         // getCardsInfo(4);
-    //     }
-    // }, [])
-
     useEffect(() => {
         if (localStorage.courseName === undefined || localStorage.getItem('fromHome') !== 'true') {
             navigate('/home'); // Redirect if not accessed from the homepage
         }
         localStorage.removeItem('fromHome'); // Clear flag after use
         
-        if (localStorage.length === 0) {
+        if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
             navigate('/login');
         }
     }, []);
@@ -49,7 +39,7 @@ function Registration() {
         } else {
             const email = localStorage.getItem('email');
             const courseName = localStorage.getItem('courseName');
-            const endpoint = 'http://localhost:4997/reg-course';
+            const endpoint = `${ip[0]}/reg-course`;
             if (courseName !== null) {
                 try {
                     const response = await fetch(endpoint, {
