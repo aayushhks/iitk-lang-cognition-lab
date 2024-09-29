@@ -4,6 +4,7 @@ import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap'
 import './Login.css';
 
 import Navbar from './navbar.js';
+import { ip } from './config'
 // import Footer from './Footer.jsx';
 
 const Login = () => {
@@ -22,63 +23,93 @@ const Login = () => {
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false); // ADDED
     const [isEmailInvalid, setIsEmailInvalid] = useState(false); // ADDED
 
+    const update_users_online = async () => {
+        const email_add = localStorage.getItem("email");
+        try {
+            const response = await fetch(`${ip[0]}/update-online-users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "email_add": email_add }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            // console.log(result);
+            // setOnlineUsers(result);
+        } catch (error) {
+            console.log('An error occurred:', error);
+        }
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
-            setValidated(true); // ADDED
-            return; // ADDED
+            setValidated(true);
+            return;
         } else {
             // Handle the login logic here
             try {
-                const response = await fetch('http://localhost:4997/login', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ email, password }),
+                const response = await fetch(`${ip[0]}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
                 });
 
                 const result = await response.json();
-                  if (result.success === true) {
-                      // Valid Login
-                      setInvalidLogin(false);
-                      setIsEmailInvalid(false);
-                      setIsPasswordInvalid(false);
-                    //   setStatusMessage("Hi Mrs. Pendse");
-                    //   setMessage('Login xsuccessful!');
-                      setShowAlert(true);
-                      localStorage.setItem('userinfo', JSON.stringify(result.data));
-                      localStorage.setItem('email', email);
-                      navigate('/home');
+
+                if (result.success === true) {
+                    // Valid Login
+                    setInvalidLogin(false);
+                    setIsEmailInvalid(false);
+                    setIsPasswordInvalid(false);
+
+                    const token = result.auth_token;
+
+                    setShowAlert(true);
+                    localStorage.setItem('userinfo', JSON.stringify(result.data));
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('auth_token', token);
+
+                    if (result.data.isadmin === true) {
+                        console.log('done');
+                        if (token) {
+                            window.location.href = `${ip[1]}/auth/${token}`;
+                        } else {
+                            console.log("Err: No auth token");
+                        }
                     } else {
-                        // Invalid Login
-                        setInvalidLogin(true);
-                        setStatusMessage("Either password or email is incorrect");
-                        setMessage(result.message || 'Login failed');
-                        setShowAlert(false);
+                        update_users_online();
+                        navigate('/home');
+                    }
+                } else {
+                    // Invalid Login
+                    setInvalidLogin(true);
+                    setStatusMessage("Either password or email is incorrect");
+                    setMessage(result.message || 'Login failed');
+                    setShowAlert(false);
 
-                        setIsPasswordInvalid(true); // ADDED
-                        setIsEmailInvalid(true); // ADDED
-                  }
-                } catch (error) {
-                    setMessage('An error occurred');
-                  }
+                    setIsPasswordInvalid(true); // ADDED
+                    setIsEmailInvalid(true); // ADDED
+                }
+            } catch (error) {
+                setMessage('An error occurred');
+            }
         }
-        // setValidated(true); // REMOVED
-
-        //   if (response.ok) {
-        //     setMessage('Login successful!');
-        //     // Handle successful login (e.g., redirect to another page)
-        //   } else {
-        //     setMessage(result.message || 'Login failed');
-        //   }
     }
 
     const handleForgotPassword = (event) => {
         event.preventDefault();
+
         // Handle the password reset logic here
         console.log('Reset request sent for email:', email);
         setForgotPassword(true);
@@ -86,7 +117,7 @@ const Login = () => {
 
     return (
         <>
-            <Navbar isLoginPage={true} />
+            <Navbar />
             <Container className="login-container">
                 <Row className="justify-content-md-center">
                     <Col md={6} lg={4}>
