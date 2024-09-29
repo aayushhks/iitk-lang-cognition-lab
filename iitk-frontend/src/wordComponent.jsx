@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ip } from './config'
 
 const WordComponent = () => {
     const [words, setWords] = useState([]);
@@ -16,7 +17,7 @@ const WordComponent = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('http://localhost:4997/words', {
+            const response = await axios.post(`${ip[0]}/words`, {
                 slice_of_n: sliceOfN,
                 offset_idx: lastUsedIdx,
                 email: 'neha_pendse@gmail.com', // Replace with actual email
