@@ -4,10 +4,21 @@
     width: 100%;
 }
 
-.no-recs {
-    margin: 0 auto;
-    margin-top: 30px;
-    text-align: center;
+.no-recs-admintable {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    height: 100%;            
+    width: 100%;             
+    min-height: 200px;       
+    text-align: center;      
+    font-size: 1.5em;        
+    color: #6c757d;          
+}
+
+.no-recs-cell-admintable {
+    text-align: center; 
+    padding: 50px 0;    
 }
 
 .page-buttons {
@@ -21,4 +32,3 @@
     text-align: center;
     margin: 10px;
 }
-
