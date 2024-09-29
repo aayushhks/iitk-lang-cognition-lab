@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap';
 // import { useNavigate } from 'react-router-dom';
 import './myprofile.css'
+import { ip } from './config'
 
 function MyProfile() {
     const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ function MyProfile() {
         const email=localStorage.email
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4997/update-profile', {
+            const response = await fetch(`${ip[0]}/update-profile`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +79,7 @@ function MyProfile() {
         console.log(formData);
         // Handle form submission logic
         try {
-            const response = await fetch('http://localhost:4997/get-profile', {
+            const response = await fetch(`${ip[0]}/get-profile`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -139,7 +140,7 @@ function MyProfile() {
     
     return (
         <>
-        <Navbar/>
+        <Navbar isMyProfilePage={true}/>
         <Container className="signup-container">
             <Row className="justify-content-md-center">
                 <Col md={8}>
