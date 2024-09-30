@@ -48,18 +48,18 @@ function Navbar(props) {
 
         if (signUpOutText === 'Log in') {
             setSignUpOutText('Sign up');
-            if (!(localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin'])) {
+            if (!(localStorage.length === 0 || (localStorage.userinfo) && JSON.parse(localStorage.userinfo)['isadmin'])) {
                 navigate('/home');
             }
         }
         if (isSignupPage) {
             setSignUpOutText("Log in");
-            if (!(localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin'])) {
+            if (!(localStorage.length === 0 || (localStorage.userinfo) && JSON.parse(localStorage.userinfo)['isadmin'])) {
                 navigate('/home');
             }
         }
         else {
-            if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
+            if (localStorage.length === 0 || (localStorage.userinfo) && JSON.parse(localStorage.userinfo)['isadmin']) {
                 if (isMyProfilePage) {
                     navigate('/login');
                 }
@@ -116,7 +116,7 @@ function Navbar(props) {
             if (isSignupPage) {
                 setSignUpOutText("Log in");
             } else {
-                if (localStorage.length === 0 || JSON.parse(localStorage.userinfo)['isadmin']) {
+                if (localStorage.length === 0 || (localStorage.userinfo) && JSON.parse(localStorage.userinfo)['isadmin']) {
                     setSignUpOutText("Sign up");
                     navigate('/signup');
                 } else {
