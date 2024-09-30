@@ -1,3 +1,5 @@
+# TODO: Ensure all JWT works correctly
+
 import os
 import sys
 import json
@@ -831,9 +833,8 @@ def is_token_valid():
     email = get_jwt_identity()
     return jsonify({ "success": True, "email": email })
 
-# TODO: Make this work
 @app.route('/logout', methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def logout():
     auth_header = request.headers.get('Authorization')
 
@@ -1191,4 +1192,4 @@ def signup():
 
 if __name__ == '__main__':
     # Add IP Here
-    app.run(host='10.162.20.250', debug=True, port=4997)
+    app.run(host='10.162.132.77', debug=True, port=4997)
