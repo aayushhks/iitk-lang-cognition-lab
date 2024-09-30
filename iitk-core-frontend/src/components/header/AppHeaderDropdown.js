@@ -24,7 +24,7 @@ import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
 // import userIcon from './../../assets/images/avatars/user-icon.png'
-import { ip } from '../../../../../iitk2/lang-cognition-lab/iitk-frontend/src/config.js';
+import { ip } from '../../../../../iitk-lang-cognition-lab/iitk-frontend/src/config.js';
 
 const AppHeaderDropdown = () => {
 
