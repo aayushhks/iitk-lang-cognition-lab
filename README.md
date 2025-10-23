@@ -140,7 +140,74 @@ The system is composed of three main parts:
 
 ## Project Structure
 
-iitk-lang-cognition-lab/ ├── iitk-backend/ # Python Flask API │ ├── roo/ # Main backend logic │ │ ├── index.py # Main Flask app, routes, and logic │ │ ├── db/ # JSON-based database files │ │ │ ├── config.json # Survey definitions │ │ │ └── users.json # User data (created at runtime) │ │ └── security.py # Password hashing functions │ ├── data/ # Raw data corpus │ └── requirements.txt # Python dependencies │ ├── iitk-core-frontend/ # React Admin Dashboard │ ├── public/ │ ├── src/ │ │ ├── components/ # CoreUI components (Header, Sidebar, etc.) │ │ ├── views/ # Admin pages (Dashboard, Tables, Forms) │ │ ├── _nav.js # Sidebar navigation config │ │ └── routes.js # Admin panel routes │ ├── package.json # Admin frontend dependencies │ └── vite.config.mjs # Vite configuration │ └── iitk-frontend/ # React User Portal ├── public/ # Static assets, User_Manual.pdf ├── src/ │ ├── components/ # (Not used, components are in src/) │ ├── assets/ │ ├── App.js # Main React router │ ├── Home.jsx # Survey selection page │ ├── Course.jsx # Word rating interface │ ├── Login.js # User login page │ ├── SignUp.js # User registration page │ ├── .jsx # Other pages (MyProfile, ContactUs, etc.) │ └── instruction.jsx # Instructions for each survey └── package.json # User frontend dependencies
+iitk-lang-cognition-lab/
+
+├── iitk-backend/         # Python Flask API
+
+│   ├── roo/              # Main backend logic
+
+│   │   ├── index.py      # Main Flask app, routes, and logic
+
+│   │   ├── db/           # JSON-based database files
+
+│   │   │   ├── config.json # Survey definitions
+
+│   │   │   └── users.json  # User data (created at runtime)
+
+│   │   └── security.py   # Password hashing functions
+
+│   ├── data/             # Raw data corpus
+
+│   └── requirements.txt  # Python dependencies
+
+│
+
+├── iitk-core-frontend/   # React Admin Dashboard
+
+│   ├── public/
+
+│   ├── src/
+
+│   │   ├── components/   # CoreUI components (Header, Sidebar, etc.)
+
+│   │   ├── views/        # Admin pages (Dashboard, Tables, Forms)
+
+│   │   ├── _nav.js       # Sidebar navigation config
+
+│   │   └── routes.js     # Admin panel routes
+
+│   ├── package.json      # Admin frontend dependencies
+
+│   └── vite.config.mjs   # Vite configuration
+
+│
+
+└── iitk-frontend/        # React User Portal
+
+├── public/           # Static assets, User_Manual.pdf
+
+├── src/
+
+│   ├── components/   # (Not used, components are in src/)
+
+│   ├── assets/
+
+│   ├── App.js        # Main React router
+
+│   ├── Home.jsx      # Survey selection page
+
+│   ├── Course.jsx    # Word rating interface
+
+│   ├── Login.js      # User login page
+
+│   ├── SignUp.js     # User registration page
+
+│   ├── .jsx         # Other pages (MyProfile, ContactUs, etc.)
+
+│   └── instruction.jsx # Instructions for each survey
+
+└── package.json      # User frontend dependencies
+
 
 ## Setup and Installation
 
